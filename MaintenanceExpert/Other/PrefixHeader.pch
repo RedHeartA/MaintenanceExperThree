@@ -1,0 +1,104 @@
+//
+//  PrefixHeader.pch
+//  MaintenanceExpert
+//
+//  Created by xpc on 16/10/20.
+//  Copyright © 2016年 ZSYW. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define KScreenWidth [UIScreen mainScreen].bounds.size.width
+#define KScreenHeight [UIScreen mainScreen].bounds.size.height
+//  灰色分割线颜色、灰色View背景色
+#define BACK_GROUND_COLOR [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1]
+//  导航栏背景色
+#define NAVIGATION_COLOR [UIColor colorWithRed:250.0/255.0 green:227.0/255.0 blue:111.0/255.0 alpha:1]
+//  充值界面按钮背景色
+#define BANK_BUTTON_COLOR [UIColor colorWithRed:38.0/255.0 green:177.0/255.0 blue:40.0/255.0 alpha:1]
+//自定义颜色rgba
+#define ColorWithRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/1.0] //<<< 用10进制表示颜色，例如（255,255,255）黑色
+
+// NAVIGATION_COLOR --- ColorWithRGBA(25, 101, 196, 1)
+
+
+//  self.view 背景色
+#define UIView_BackView_color ColorWithRGBA(30, 54, 98, 1)
+
+//  tabbleView、view背景色
+#define ViewController_Back_Color ColorWithRGBA(18, 32, 62, 1)
+
+//  home、Order  title 颜色
+#define Home_Order_titleColor ColorWithRGBA(31, 178, 250, 1)
+
+//  home、Order  二级标题 颜色
+#define Home_Order_secendColor ColorWithRGBA(26, 150, 211, 1)
+
+
+#define Label_Color ColorWithRGBA(22, 130, 196, 1)
+#define TextField_Text_Color ColorWithRGBA(40, 175, 252, 1)
+#define Placeholder_Color ColorWithRGBA(40, 175, 252, 1)
+#define Line_Color ColorWithRGBA(26, 45, 83, 1)
+
+
+//  画线 DrawLineView
+#import "NeedDrawView.h"
+#import "ShapeView.h"
+
+//  注册、改密码  界面---
+#define TOP_LABEL_HEIGHT 20
+#define TOP_LINE_HEIGHT 20
+#define LABEL_FONT 18
+#define TEXTF_X 60
+#define TEXTF_WIDTH 200
+
+
+//  按钮的layer 下一步、退出登录等
+#define Btn_NextAndOutLogin_Layer 8
+#define Btn_NextAndOutLogin_Height 40
+
+
+//判断是否为iPhone
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//判断是否为iPad
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//判断是否为ipod
+#define IS_IPOD ([[[UIDevice currentDevice] model] isEqualToString:@"iPod touch"])
+// 判断是否为 iPhone 5SE
+#define iPhone5SE [[UIScreen mainScreen] bounds].size.width == 320.0f && [[UIScreen mainScreen] bounds].size.height == 568.0f
+// 判断是否为iPhone 6/6s
+#define iPhone6_6s [[UIScreen mainScreen] bounds].size.width == 375.0f && [[UIScreen mainScreen] bounds].size.height == 667.0f
+// 判断是否为iPhone 6Plus/6sPlus
+#define iPhone6Plus_6sPlus [[UIScreen mainScreen] bounds].size.width == 414.0f && [[UIScreen mainScreen] bounds].size.height == 736.0f
+//获取系统版本
+#define IOS_SYSTEM_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+//判断 iOS 8 或更高的系统版本
+#define IOS_VERSION_8_OR_LATER (([[[UIDevice currentDevice] systemVersion] floatValue] >=8.0)? (YES):(NO))
+//判断 iOS 9 或更高的系统版本
+#define IOS_VERSION_9_OR_LATER (([[[UIDevice currentDevice] systemVersion] floatValue] >=9.0)? (YES):(NO))
+//判断 iOS 10 或更高的系统版本
+#define IOS_VERSION_10_OR_LATER (([[[UIDevice currentDevice] systemVersion] floatValue] >=10.0)? (YES):(NO))
+//通知中心
+#define ZSNotificationCenter [NSNotificationCenter defaultCenter]
+
+#import "ZSDetailOrderModel.h"
+#import "InterfaceURL.h"
+#import "SDAutoLayout.h"
+#import "Regex.h"
+#import "MBProgressHUD.h"
+#import <MapKit/MapKit.h>
+#import "AFNetworking.h"
+#import "MSCellAccessory.h"
+#import "MJRefresh.h"
+#import "CCActivityHUD.h"
+
+#import <AMapLocationKit/AMapLocationKit.h>
+#endif /* PrefixHeader_pch */
+
+
+
+
