@@ -124,8 +124,6 @@
 		30FBB8131E12154500ABA9F1 /* ZSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB7F81E12154500ABA9F1 /* ZSRegisterViewController.m */; };
 		30FBB8141E12154500ABA9F1 /* ZSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB7FA1E12154500ABA9F1 /* ZSTabBarController.m */; };
 		30FBB8151E12154500ABA9F1 /* ZSDetailRegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB7FD1E12154500ABA9F1 /* ZSDetailRegisterModel.m */; };
-		30FBB8161E12154500ABA9F1 /* NeedDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB8011E12154500ABA9F1 /* NeedDrawView.m */; };
-		30FBB8171E12154500ABA9F1 /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB8031E12154500ABA9F1 /* ShapeView.m */; };
 		30FBB8181E12154500ABA9F1 /* UIbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB8051E12154500ABA9F1 /* UIbutton.m */; };
 		30FBB8191E12154500ABA9F1 /* ZSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FBB8081E12154500ABA9F1 /* ZSTabBar.m */; };
 		57075DFC1DC3480200693E85 /* ZSMessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57075DFB1DC3480200693E85 /* ZSMessageViewCell.m */; };
@@ -445,10 +443,6 @@
 		30FBB7FA1E12154500ABA9F1 /* ZSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSTabBarController.m; sourceTree = "<group>"; };
 		30FBB7FC1E12154500ABA9F1 /* ZSDetailRegisterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSDetailRegisterModel.h; sourceTree = "<group>"; };
 		30FBB7FD1E12154500ABA9F1 /* ZSDetailRegisterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSDetailRegisterModel.m; sourceTree = "<group>"; };
-		30FBB8001E12154500ABA9F1 /* NeedDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NeedDrawView.h; sourceTree = "<group>"; };
-		30FBB8011E12154500ABA9F1 /* NeedDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NeedDrawView.m; sourceTree = "<group>"; };
-		30FBB8021E12154500ABA9F1 /* ShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeView.h; sourceTree = "<group>"; };
-		30FBB8031E12154500ABA9F1 /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeView.m; sourceTree = "<group>"; };
 		30FBB8041E12154500ABA9F1 /* UIbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIbutton.h; sourceTree = "<group>"; };
 		30FBB8051E12154500ABA9F1 /* UIbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIbutton.m; sourceTree = "<group>"; };
 		30FBB8071E12154500ABA9F1 /* ZSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSTabBar.h; sourceTree = "<group>"; };
@@ -1106,6 +1100,7 @@
 				30FBB7E11E12154500ABA9F1 /* Category */,
 				30FBB7E61E12154500ABA9F1 /* Controller */,
 				30FBB7FB1E12154500ABA9F1 /* Model */,
+				30FBB7FE1E12154500ABA9F1 /* Tool */,
 				30FBB8061E12154500ABA9F1 /* View */,
 			);
 			path = Main;
@@ -1161,23 +1156,10 @@
 		30FBB7FE1E12154500ABA9F1 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				30FBB7FF1E12154500ABA9F1 /* PCDrawLineView */,
 				30FBB8041E12154500ABA9F1 /* UIbutton.h */,
 				30FBB8051E12154500ABA9F1 /* UIbutton.m */,
 			);
-			name = Tool;
-			path = ../../Main/Tool;
-			sourceTree = "<group>";
-		};
-		30FBB7FF1E12154500ABA9F1 /* PCDrawLineView */ = {
-			isa = PBXGroup;
-			children = (
-				30FBB8001E12154500ABA9F1 /* NeedDrawView.h */,
-				30FBB8011E12154500ABA9F1 /* NeedDrawView.m */,
-				30FBB8021E12154500ABA9F1 /* ShapeView.h */,
-				30FBB8031E12154500ABA9F1 /* ShapeView.m */,
-			);
-			path = PCDrawLineView;
+			path = Tool;
 			sourceTree = "<group>";
 		};
 		30FBB8061E12154500ABA9F1 /* View */ = {
@@ -1297,7 +1279,6 @@
 			isa = PBXGroup;
 			children = (
 				571D92FA1E0946F700E36989 /* ZSLeftTableViewCell.h */,
-				30FBB7FE1E12154500ABA9F1 /* Tool */,
 				571D92FB1E0946F700E36989 /* ZSLeftTableViewCell.m */,
 				571D93041E0946F700E36989 /* ZSRightTableViewCell.h */,
 				571D93051E0946F700E36989 /* ZSRightTableViewCell.m */,
@@ -1885,7 +1866,6 @@
 				302234431E13A42200C215E4 /* Stepfirst.m in Sources */,
 				3022345A1E13A42200C215E4 /* DianchiZhujiLineSelectView.m in Sources */,
 				302234401E13A42200C215E4 /* XWPopMenuController.m in Sources */,
-				30FBB8161E12154500ABA9F1 /* NeedDrawView.m in Sources */,
 				30A2914A1DE2C6680012476D /* TZImagePickerController.m in Sources */,
 				302233D01E1399D700C215E4 /* ZSMessageViewFirstCell.m in Sources */,
 				571D93901E09475200E36989 /* BankCardModel.m in Sources */,
@@ -1903,7 +1883,6 @@
 				30A2914F1DE2C6680012476D /* UIView+Layout.m in Sources */,
 				30FBB8111E12154500ABA9F1 /* ZSRegisterHardwareTwoVc.m in Sources */,
 				30C681931E16047A008332AA /* UIView+AccessViewController.m in Sources */,
-				30FBB8171E12154500ABA9F1 /* ShapeView.m in Sources */,
 				3022344A1E13A42200C215E4 /* STPickerDate.m in Sources */,
 				3022345B1E13A42200C215E4 /* GuzhangdianSeclectView.m in Sources */,
 				302234481E13A42200C215E4 /* STPickerArea.m in Sources */,
