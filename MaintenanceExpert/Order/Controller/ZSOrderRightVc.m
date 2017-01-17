@@ -112,7 +112,7 @@
     NSDictionary *dic = [[NSDictionary alloc] init];
     
     dic = @{@"kindImageName":@"home_xiu",
-            @"title":@"北京市敦化路325号青岛银行机房建设建设建设建设建设",
+            @"title":@"北京市东四环朝阳区888号中国银行机房建设建设建设建设建设",
             @"price":@"3000.00",
             @"orderStatus":@"紧急维护",
             @"receiveorderTime":@"2016年11月28日",
@@ -158,7 +158,7 @@
     [self.view addSubview:_tableView];
     
     _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
-    _TOTop.backgroundColor = [UIColor yellowColor];
+    [_TOTop setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
     [self.view addSubview:_TOTop];
     [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
 }

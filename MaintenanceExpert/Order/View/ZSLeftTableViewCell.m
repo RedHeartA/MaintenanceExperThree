@@ -212,7 +212,7 @@
 //    [_another setTitle:@"● ● ●" forState:UIControlStateNormal];
 //    [_another setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    [_another.titleLabel setFont:[UIFont systemFontOfSize:10]];
-//    [_another addTarget:self action:@selector(anotherButtonClick) forControlEvents:UIControlEventTouchDown];
+//    [_another addTarget:self action:@selector(anotherButtonClick) forControlEvents:UIControlEventTouchUpInside];
 //    [_bgView addSubview:_another];
 //    _another.sd_layout.rightSpaceToView(_bgView, 10)
 //    .topSpaceToView(line, 10)
@@ -226,7 +226,7 @@
 //    [_appraisal setTitle:@"查看评价" forState:UIControlStateNormal];
 //    [_appraisal setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    [_appraisal.titleLabel setFont:[UIFont systemFontOfSize:16]];
-//    [_appraisal addTarget:self action:@selector(appraisalButtonClick) forControlEvents:UIControlEventTouchDown];
+//    [_appraisal addTarget:self action:@selector(appraisalButtonClick) forControlEvents:UIControlEventTouchUpInside];
 //    [_bgView addSubview:_appraisal];
 //    _appraisal.sd_layout.rightSpaceToView(_another, 10)
 //    .topEqualToView(_another)

@@ -141,7 +141,7 @@
     rechargeBtn.titleLabel.font = [UIFont systemFontOfSize:20 weight:1];
     rechargeBtn.layer.cornerRadius = 10;
     [self.view addSubview:rechargeBtn];
-    [rechargeBtn addTarget:self action:@selector(rechargeBtnClick) forControlEvents:UIControlEventTouchDown];
+    [rechargeBtn addTarget:self action:@selector(rechargeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *CashBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, rechargeBtn.frame.origin.y + rechargeBtn.frame.size.height + 10, KScreenWidth - 20, 40)];
     [CashBtn setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateNormal];
@@ -150,7 +150,7 @@
     CashBtn.titleLabel.font = [UIFont systemFontOfSize:20 weight:1];
     CashBtn.layer.cornerRadius = 10;
     [self.view addSubview:CashBtn];
-    [CashBtn addTarget:self action:@selector(CashBtnClick) forControlEvents:UIControlEventTouchDown];
+    [CashBtn addTarget:self action:@selector(CashBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
 }
 

@@ -29,10 +29,9 @@
 @implementation ZSOrderLeftVc
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     if (_activityHUD) {
         _activityHUD.hidden = NO;
-    }else{
-        
     }
     //1. 添加监听
     [_tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -155,7 +154,7 @@
     [self.view addSubview:_tableView];
     
     _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
-    _TOTop.backgroundColor = [UIColor yellowColor];
+    [_TOTop setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
     [self.view addSubview:_TOTop];
     [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
     

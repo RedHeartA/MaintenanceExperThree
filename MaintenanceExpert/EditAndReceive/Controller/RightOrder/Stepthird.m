@@ -359,7 +359,7 @@
     [commitbtn setTitle:@"确认提交" forState:UIControlStateNormal];
     [commitbtn setBackgroundImage:[UIImage imageNamed:@"bilu-list"] forState:UIControlStateNormal];
     [commitbtn setBackgroundImage:[UIImage imageNamed:@"bilu-next-"] forState:UIControlStateHighlighted];
-    [commitbtn addTarget:self action:@selector(commitclick) forControlEvents:UIControlEventTouchDown];
+    [commitbtn addTarget:self action:@selector(commitclick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitbtn];
     
 }

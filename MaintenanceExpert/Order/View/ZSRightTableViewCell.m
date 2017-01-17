@@ -125,6 +125,7 @@
     
     UILabel *xunjianLabel = [[UILabel alloc] init];
     //xunjianLabel.text = @"定期巡检";
+    _xunjianLabel = xunjianLabel;
     xunjianLabel.textColor = Home_Order_secendColor;
     xunjianLabel.font = [UIFont systemFontOfSize:12];
     [_bgView addSubview:xunjianLabel];
@@ -156,31 +157,31 @@
     .heightIs(10);
     
     //  剩余时间
-    _timeShengYu = [[UILabel alloc] init];
-    //    _timeShengYu.backgroundColor = [UIColor cyanColor];
-    _timeShengYu.text = @"还剩7天1小时";
-    _timeShengYu.textColor = Home_Order_secendColor;
-    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
-    [_bgView addSubview:_timeShengYu];
-    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
-    .rightEqualToView(_releaseTime)
-    .widthIs(80)
-    .heightIs(10);
+//    _timeShengYu = [[UILabel alloc] init];
+//    //    _timeShengYu.backgroundColor = [UIColor cyanColor];
+//    _timeShengYu.text = @"还剩7天1小时";
+//    _timeShengYu.textColor = Home_Order_secendColor;
+//    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
+//    [_bgView addSubview:_timeShengYu];
+//    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
+//    .rightEqualToView(_releaseTime)
+//    .widthIs(80)
+//    .heightIs(10);
     
     
     //  下次巡检时间/发布日期
-    UILabel *xunjianlabel = [[UILabel alloc] init];
-    //    _nextXunJian.backgroundColor = [UIColor cyanColor];
-    //_nextXunJian.text = @"下次巡检:2016年10月28日";
-    xunjianlabel.textColor = Home_Order_secendColor;
-    [xunjianlabel setFont:[UIFont systemFontOfSize:10]];
-    [_bgView addSubview:xunjianlabel];
-    xunjianlabel.sd_layout.rightSpaceToView(_bgView, 8);
-    xunjianlabel.sd_layout.bottomSpaceToView(_timeShengYu, 1)
-    .rightEqualToView(_timeShengYu)
-    .widthIs(130)
-    .heightIs(10);
-    _xunjianLabel = xunjianLabel;
+//    UILabel *xunjianlabel = [[UILabel alloc] init];
+//    //    _nextXunJian.backgroundColor = [UIColor cyanColor];
+//    //_nextXunJian.text = @"下次巡检:2016年10月28日";
+//    xunjianlabel.textColor = Home_Order_secendColor;
+//    [xunjianlabel setFont:[UIFont systemFontOfSize:10]];
+//    [_bgView addSubview:xunjianlabel];
+//    xunjianlabel.sd_layout.rightSpaceToView(_bgView, 8);
+//    xunjianlabel.sd_layout.bottomSpaceToView(_timeShengYu, 1)
+//    .rightEqualToView(_timeShengYu)
+//    .widthIs(130)
+//    .heightIs(10);
+//    _xunjianLabel = xunjianLabel;
     
     //  联系
     UIButton *callBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -211,7 +212,7 @@
     //    [_another setTitle:@"● ● ●" forState:UIControlStateNormal];
     //    [_another setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //    [_another.titleLabel setFont:[UIFont systemFontOfSize:10]];
-    //    [_another addTarget:self action:@selector(anotherButtonClick) forControlEvents:UIControlEventTouchDown];
+    //    [_another addTarget:self action:@selector(anotherButtonClick) forControlEvents:UIControlEventTouchUpInside];
     //    [_bgView addSubview:_another];
     //    _another.sd_layout.rightSpaceToView(_bgView, 10)
     //    .topSpaceToView(line, 10)
@@ -225,7 +226,7 @@
     //    [_appraisal setTitle:@"查看评价" forState:UIControlStateNormal];
     //    [_appraisal setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //    [_appraisal.titleLabel setFont:[UIFont systemFontOfSize:16]];
-    //    [_appraisal addTarget:self action:@selector(appraisalButtonClick) forControlEvents:UIControlEventTouchDown];
+    //    [_appraisal addTarget:self action:@selector(appraisalButtonClick) forControlEvents:UIControlEventTouchUpInside];
     //    [_bgView addSubview:_appraisal];
     //    _appraisal.sd_layout.rightSpaceToView(_another, 10)
     //    .topEqualToView(_another)
@@ -253,8 +254,8 @@
     _address.text = self.model.title;
     _money.text = [NSString stringWithFormat:@"¥%@/次*12",self.model.price];
     _xunjianLabel.text = self.model.orderStatus;
-    _releaseTime.text = [NSString stringWithFormat:@"发布日期:%@",self.model.pushorderTime];
-    _nextXunJian.text = [NSString stringWithFormat:@"下次巡检:%@",self.model.receiveorderTime];
+    _releaseTime.text = [NSString stringWithFormat:@"完成日期:%@",self.model.pushorderTime];
+//    _nextXunJian.text = [NSString stringWithFormat:@"下次巡检:%@",self.model.receiveorderTime];
     
 }
 

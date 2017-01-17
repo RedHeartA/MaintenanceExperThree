@@ -91,7 +91,7 @@ static CLRotationView *shareInstance;
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
         }
         btn.tag = i;
-        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchDown];
+        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         [_btnArray addObject:btn];
         
