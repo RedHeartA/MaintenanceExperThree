@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 
-@property (strong, nonatomic) UIButton *TOTop;
+@property (strong, nonatomic) UIButton *TOTopRight;
 
 @property (nonatomic, strong) NSMutableArray *dataList;
 
@@ -76,19 +76,7 @@
     
     _dataList = [[NSMutableArray alloc]init];
     
-    self.activityHUD = [CCActivityHUD new];
-    self.activityHUD.isTheOnlyActiveView = NO;
-    
-    [self.activityHUD showWithGIFName:@"baymax2.gif"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.activityHUD dismissNoSecondView];
-        
-        [self reloaddata];
-    });
-
-    
+    [self reloaddata];
 }
 
 /**
@@ -112,7 +100,7 @@
     NSDictionary *dic = [[NSDictionary alloc] init];
     
     dic = @{@"kindImageName":@"home_xiu",
-            @"title":@"北京市东四环朝阳区888号中国银行机房建设建设建设建设建设",
+            @"title":@"北京市敦化路325号青岛银行机房建设建设建设建设建设",
             @"price":@"3000.00",
             @"orderStatus":@"紧急维护",
             @"receiveorderTime":@"2016年11月28日",
@@ -144,9 +132,8 @@
     [_tableView.mj_footer endRefreshing];
 }
 
-- (void)totop {
+- (void)totopRight {
     [_tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [_TOTop removeFromSuperview];
 }
 - (void)creatTableView {
     
@@ -157,10 +144,13 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
-    [_TOTop setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
-    [self.view addSubview:_TOTop];
-    [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
+//    _tableView.userInteractionEnabled = NO;
+    
+    _TOTopRight = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
+    _TOTopRight.hidden = YES;
+    [_TOTopRight setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
+    [self.view addSubview:_TOTopRight];
+    [_TOTopRight addTarget:self action:@selector(totopRight) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //2.监听的处理
@@ -174,9 +164,9 @@
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
         NSLog(@"%f",offset.y);
         if (offset.y > KScreenHeight * 2) {
-            [_TOTop setHidden:NO];
+            [_TOTopRight setHidden:NO];
         }else{
-            [_TOTop setHidden:YES];
+            [_TOTopRight setHidden:YES];
         }
         
     }
@@ -215,9 +205,7 @@
         [_appraisal addTarget:self action:@selector(appraisalRightButtonClick) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:_appraisal];
 
-
     }
-    
     return cell;
 }
 

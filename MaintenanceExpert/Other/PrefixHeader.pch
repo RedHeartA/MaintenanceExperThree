@@ -45,6 +45,10 @@
 #define Line_Color ColorWithRGBA(26, 45, 83, 1)
 
 
+//  画线 DrawLineView
+#import "NeedDrawView.h"
+#import "ShapeView.h"
+
 //  注册、改密码  界面---
 #define TOP_LABEL_HEIGHT 20
 #define TOP_LINE_HEIGHT 20

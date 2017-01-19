@@ -214,7 +214,7 @@ typedef enum{
     [_messageBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_messageBtn.titleLabel setFont:[UIFont systemFontOfSize:14 weight:2]];
     [_messageBtn setBackgroundImage:[UIImage imageNamed:@"sendMessage"] forState:UIControlStateNormal];
-    [_messageBtn addTarget:self action:@selector(RegisterstartTime) forControlEvents:UIControlEventTouchUpInside];
+    [_messageBtn addTarget:self action:@selector(RegisterstartTime) forControlEvents:UIControlEventTouchDown];
     [backView addSubview:_messageBtn];
     _messageBtn.sd_layout.topSpaceToView(phoneLineView, TOP_LABEL_HEIGHT -6)
     .rightSpaceToView(backView, 20)

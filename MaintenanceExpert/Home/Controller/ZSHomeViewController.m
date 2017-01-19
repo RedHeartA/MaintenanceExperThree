@@ -90,7 +90,7 @@
     [leftTitleBtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
     leftTitleBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [leftTitleBtn setTitleColor:ColorWithRGBA(43, 161, 229, 1) forState:UIControlStateNormal];
-    [leftTitleBtn addTarget:self action:@selector(leftTitleBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [leftTitleBtn addTarget:self action:@selector(leftTitleBtnClick) forControlEvents:UIControlEventTouchDown];
     [titleView addSubview:leftTitleBtn];
     //  我的
     rightTitltBtn = [[UIButton alloc] initWithFrame:CGRectMake(titleView.frame.size.width/2, 0, titleView.frame.size.width/2, 44)];
@@ -98,7 +98,7 @@
     [rightTitltBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [rightTitltBtn setTitleColor:ColorWithRGBA(20, 129, 194, 1) forState:UIControlStateNormal];
     rightTitltBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-    [rightTitltBtn addTarget:self action:@selector(rightTitltBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [rightTitltBtn addTarget:self action:@selector(rightTitltBtnClick) forControlEvents:UIControlEventTouchDown];
     [titleView addSubview:rightTitltBtn];
     self.navigationItem.titleView = titleView;
     
@@ -196,7 +196,7 @@
     //  刷新位置按钮
     refreshBtn = [[UIButton alloc] init];
     [refreshBtn setImage:[UIImage imageNamed:@"home_location_refresh"] forState:UIControlStateNormal];
-    [refreshBtn addTarget:self action:@selector(rotationAnimation) forControlEvents:UIControlEventTouchUpInside];
+    [refreshBtn addTarget:self action:@selector(rotationAnimation) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:refreshBtn];
     refreshBtn.sd_layout.topEqualToView(aroundImgView)
     .rightSpaceToView(self.view, 5)

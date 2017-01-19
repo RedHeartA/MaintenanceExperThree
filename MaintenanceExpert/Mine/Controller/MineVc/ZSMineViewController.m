@@ -359,7 +359,7 @@
     //    [_Loginbtn setTitle:@"登 录" forState:UIControlStateNormal];
     //    _Loginbtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     //    [_Loginbtn.titleLabel setFont:[UIFont systemFontOfSize:30 weight:5]];
-    //    [_Loginbtn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
+    //    [_Loginbtn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchDown];
     //    _Loginbtn.backgroundColor = [UIColor clearColor];
     //    [_HeaderView addSubview:_Loginbtn];
     

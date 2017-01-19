@@ -123,7 +123,7 @@
 //    nextbtn.layer.cornerRadius = 10;
 //    nextbtn.backgroundColor = [UIColor cyanColor];
     [_tableview addSubview:nextbtn];
-    [nextbtn addTarget:self action:@selector(clickToSteptwo) forControlEvents:UIControlEventTouchUpInside];
+    [nextbtn addTarget:self action:@selector(clickToSteptwo) forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)clickToSteptwo {

@@ -466,7 +466,7 @@
     [commitbtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
     commitbtn.layer.cornerRadius = 10;
     [_scrollview addSubview:commitbtn];
-    [commitbtn addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchUpInside];
+    [commitbtn addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchDown];
     
 }
 - (void)btncommit {
@@ -655,7 +655,7 @@
     [_commitbtngeren.titleLabel setFont:[UIFont systemFontOfSize:16]];
     _commitbtngeren.layer.cornerRadius = 10;
     [_tableview addSubview:_commitbtngeren];
-    [_commitbtngeren addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchUpInside];
+    [_commitbtngeren addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchDown];
     
     _commitbtngongsi = [[UIButton alloc]initWithFrame:CGRectMake(5, 60 * 7+20+20 , KScreenWidth-30, 40)];
     [_commitbtngongsi setBackgroundImage:[UIImage imageNamed:@"wancheng"] forState:UIControlStateNormal];
@@ -664,7 +664,7 @@
     [_commitbtngongsi.titleLabel setFont:[UIFont systemFontOfSize:16]];
     _commitbtngongsi.layer.cornerRadius = 10;
     [_tableview addSubview:_commitbtngongsi];
-    [_commitbtngongsi addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchUpInside];
+    [_commitbtngongsi addTarget:self action:@selector(btncommit) forControlEvents:UIControlEventTouchDown];
     _commitbtngongsi.hidden = YES;
 }
 

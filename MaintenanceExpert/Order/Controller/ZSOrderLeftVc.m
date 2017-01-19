@@ -29,9 +29,10 @@
 @implementation ZSOrderLeftVc
 
 - (void)viewWillAppear:(BOOL)animated {
-    
     if (_activityHUD) {
         _activityHUD.hidden = NO;
+    }else{
+        
     }
     //1. 添加监听
     [_tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -73,18 +74,7 @@
     
     _dataList = [[NSMutableArray alloc]init];
     
-    self.activityHUD = [CCActivityHUD new];
-    self.activityHUD.isTheOnlyActiveView = NO;
-    
-    [self.activityHUD showWithGIFName:@"baymax2.gif"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.activityHUD dismissNoSecondView];
-        
-        [self reloaddata];
-    });
-    
+    [self reloaddata];
 }
 
 /**
@@ -153,7 +143,11 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
+//    _tableView.userInteractionEnabled = NO;
+    
+    _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 50, 50)];
+    _TOTop.hidden = YES;
+//    _TOTop.backgroundColor = [UIColor yellowColor];
     [_TOTop setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
     [self.view addSubview:_TOTop];
     [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
@@ -234,6 +228,19 @@
 /*
 #pragma mark - Navigation
 
+ 
+ self.activityHUD = [CCActivityHUD new];
+ self.activityHUD.isTheOnlyActiveView = NO;
+ 
+ [self.activityHUD showWithGIFName:@"baymax2.gif"];
+ 
+ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+ 
+ [self.activityHUD dismissNoSecondView];
+ _tableView.userInteractionEnabled = YES;
+
+ });
+ 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].

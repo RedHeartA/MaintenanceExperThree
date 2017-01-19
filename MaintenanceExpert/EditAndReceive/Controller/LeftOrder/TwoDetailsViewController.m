@@ -195,7 +195,7 @@
     payBtn.frame = CGRectMake(10, 10, KScreenWidth - 20, 40);
     [payBtn setTitle:@"确认订单" forState:UIControlStateNormal];
     [payBtn.titleLabel setFont:[UIFont systemFontOfSize:17]];
-    [payBtn addTarget:self action:@selector(payButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [payBtn addTarget:self action:@selector(payButtonClick) forControlEvents:UIControlEventTouchDown];
     payBtn.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:217.0/255.0 blue:85.0/255.0 alpha:1];
     [btnBackView addSubview:payBtn];
 }

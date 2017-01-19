@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) CCActivityHUD *activityHUD;
 
+@property (nonatomic, readonly) NeedDrawView *pathBuilderView;
+
 @end
 
 
@@ -272,7 +274,7 @@
     [_messageBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_messageBtn.titleLabel setFont:[UIFont systemFontOfSize:14 weight:2]];
     [_messageBtn setBackgroundImage:[UIImage imageNamed:@"sendMessage"] forState:UIControlStateNormal];
-    [_messageBtn addTarget:self action:@selector(startTime) forControlEvents:UIControlEventTouchUpInside];
+    [_messageBtn addTarget:self action:@selector(startTime) forControlEvents:UIControlEventTouchDown];
     [passwordImgV addSubview:_messageBtn];
     _messageBtn.sd_layout.topSpaceToView(passwordImgV, 5)
     .rightSpaceToView(passwordImgV, 20)

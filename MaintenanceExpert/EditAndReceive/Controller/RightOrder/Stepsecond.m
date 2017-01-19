@@ -89,7 +89,7 @@
     [nextbtn setTitleColor:ColorWithRGBA(124, 202, 247, 1) forState:UIControlStateNormal];
     [nextbtn setBackgroundImage:[UIImage imageNamed:@"wancheng"] forState:UIControlStateNormal];
     [nextbtn setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateHighlighted];
-    [nextbtn addTarget:self action:@selector(clickToSteptwo) forControlEvents:UIControlEventTouchUpInside];
+    [nextbtn addTarget:self action:@selector(clickToSteptwo) forControlEvents:UIControlEventTouchDown];
     [sce addSubview:nextbtn];
 }
 
