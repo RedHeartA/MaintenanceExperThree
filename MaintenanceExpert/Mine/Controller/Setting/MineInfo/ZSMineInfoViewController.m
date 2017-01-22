@@ -13,7 +13,6 @@
 #import "UIViewController+SelectPhotoIcon.h"
 #import "ZSMineVIPViewController.h"
 
-
 @interface ZSMineInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 {
@@ -25,7 +24,6 @@
     NSString *_mineinfo;
     NSString *_address;
     NSString *_phoneNumb;
-    
     
     UITableViewCell *_namecell;
     
@@ -48,7 +46,6 @@
     NSData *data = [user objectForKey:@"USER"];
     MineInfModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     _Model = model;
-//    NSLog(@"%@",_Model.MineInformation);
     
     //  刷新 个性签名Cell
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:1];
@@ -132,15 +129,12 @@
     [backimageview.layer addAnimation:basicAnimation1 forKey:@"rotation"];
     
     [self.view addSubview:backimageview];
-    
 }
-
 
 - (void)createDonebtn {
     
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(Done)];
     self.navigationItem.rightBarButtonItem = barbtn;
-    
 }
 
 - (void)Done {
@@ -169,10 +163,36 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    UIImage *accessoryImage = [UIImage imageNamed:@"rightArrows.png"];
+    UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+    accImageView.userInteractionEnabled = YES;
+    [accImageView setFrame:CGRectMake(0, 0, accessoryImage.size.width, accessoryImage.size.height)];
+    cell.accessoryView = accImageView;
+    
     if (!cell) {
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     }
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 59, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }else {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }
+    }else if (indexPath.section == 1) {
+        if (indexPath.row != 2) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }
+    }
+    
     
     NSDictionary *dict = self.mineInfoDataListArr[indexPath.section][indexPath.row];
     cell.textLabel.text = dict[@"title"];
@@ -188,8 +208,6 @@
                 _icon.contentMode = UIViewContentModeScaleToFill;
                 _icon.layer.cornerRadius = _icon.frame.size.width / 2;
                 _icon.clipsToBounds = YES;
-                
-//                [cell.detailTextLabel addSubview:_icon];
                 [cell.contentView addSubview:_icon];
             }
             if (indexPath.row == 1) {

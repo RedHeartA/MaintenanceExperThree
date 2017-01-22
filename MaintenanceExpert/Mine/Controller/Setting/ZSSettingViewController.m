@@ -166,44 +166,47 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     cell.backgroundColor = ColorWithRGBA(28, 54, 106, 1);
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (!cell) {
         
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        
+
         [self configureCell:cell indexPath:indexPath accessoryType:FLAT_DISCLOSURE_INDICATOR];
     }
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-//            NSArray *array = [[NSArray alloc]initWithObjects:@"上班",@"下班", nil];
-//            UISegmentedControl *segmentcontrol = [[UISegmentedControl alloc]initWithItems:array];
-//            segmentcontrol.frame = CGRectMake((KScreenWidth *5 / 6) - 50 , 10, 100, 30);
-//            segmentcontrol.backgroundColor = [UIColor clearColor];
-//            segmentcontrol.layer.cornerRadius = 3;
-//            segmentcontrol.selectedSegmentIndex = 0;
-//            segmentcontrol.tintColor = ColorWithRGBA(69, 173, 232, 1);
-//            
-//            //        // 在指定索引插入一个选项并设置图片
-//            //        [segmentcontrol insertSegmentWithImage:[UIImage imageNamed:@"mei.png"] atIndex:0 animated:NO];
-//            //        // 在指定索引插入一个选项并设置题目
-//            //        [segmentcontrol insertSegmentWithTitle:@"insert" atIndex:1 animated:NO];
-//            // 设置在点击后是否恢复原样
-//            segmentcontrol.momentary = NO;
-//            [segmentcontrol setTitle:@"上班" forSegmentAtIndex:0];//设置指定索引的题目
-//            [segmentcontrol setTitle:@"下班" forSegmentAtIndex:1];
-//            // 设置指定索引选项的宽度
-//            [segmentcontrol setWidth:50.0 forSegmentAtIndex:0];
-//            [segmentcontrol addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-//            [cell addSubview:segmentcontrol];
+
             cell.accessoryType = UITableViewCellAccessoryNone;
             mySwitch = [[ UISwitch alloc]initWithFrame:CGRectMake(KScreenWidth - 80 , 10, 0, 0)];
             [cell addSubview:mySwitch];
             [mySwitch setOn:NO animated:YES];
+            
+            mySwitch.onTintColor = [UIColor cyanColor];
+            //  设置按钮的颜色
+            mySwitch.thumbTintColor = ColorWithRGBA(50, 100, 190, 1);
+            //  开关控件边框的颜色
+            mySwitch.tintColor = [UIColor purpleColor];
+            
             [mySwitch addTarget: self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
 
+        }else {
+            
+            UIImage *accessoryImage = [UIImage imageNamed:@"rightArrows.png"];
+            UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+            accImageView.userInteractionEnabled = YES;
+            [accImageView setFrame:CGRectMake(0, 0, accessoryImage.size.width, accessoryImage.size.height)];
+            cell.accessoryView = accImageView;
         }
+    }else {
+        
+        UIImage *accessoryImage = [UIImage imageNamed:@"rightArrows.png"];
+        UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+        accImageView.userInteractionEnabled = YES;
+        [accImageView setFrame:CGRectMake(0, 0, accessoryImage.size.width, accessoryImage.size.height)];
+        cell.accessoryView = accImageView;
     }
     
     
@@ -211,8 +214,27 @@
     cell.textLabel.text = dict[@"title"];
     cell.textLabel.textColor = Label_Color;
     
-    return cell;
+    if (indexPath.section == 0) {
+        if (indexPath.row != 2) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }
+    }else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }
+    }else{
+        if (indexPath.row == 0) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
+            line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
+            [cell addSubview:line];
+        }
+    }
     
+    return cell;
 }
 
 
