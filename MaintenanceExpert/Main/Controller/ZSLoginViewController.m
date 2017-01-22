@@ -39,7 +39,6 @@
 
 @property (strong, nonatomic) CCActivityHUD *activityHUD;
 
-@property (nonatomic, readonly) NeedDrawView *pathBuilderView;
 
 @end
 
@@ -62,11 +61,6 @@
     _phone = [[UITextField alloc]init];
     _secret = [[UITextField alloc]init];
     
-    self.activityHUD = [CCActivityHUD new];
-    self.activityHUD.isTheOnlyActiveView = NO;  //唯一的活动视图
-    self.activityHUD.appearAnimationType = CCActivityHUDAppearAnimationTypeZoomIn; //变大-出现
-    self.activityHUD.disappearAnimationType = CCActivityHUDDisappearAnimationTypeZoomOut; //缩小-消失
-    self.activityHUD.overlayType = CCActivityHUDOverlayTypeShadow;  //    阴影
     
     //背景图片
     UIImageView *loginBackImg = [[UIImageView alloc]initWithFrame:self.view.frame];
@@ -76,6 +70,14 @@
     [self.view addSubview:loginBackImg];
 
     [self createUI];
+
+//    self.activityHUD = [CCActivityHUD new];   //源码
+    self.activityHUD = [[CCActivityHUD alloc] init];
+    self.activityHUD.backgroundColor = [UIColor blackColor];
+    self.activityHUD.isTheOnlyActiveView = YES;  //唯一的活动视图
+    self.activityHUD.appearAnimationType = CCActivityHUDAppearAnimationTypeZoomIn; //变大-出现
+    self.activityHUD.disappearAnimationType = CCActivityHUDDisappearAnimationTypeZoomOut; //缩小-消失
+    self.activityHUD.overlayType = CCActivityHUDOverlayTypeShadow;  //    阴影
 }
 
 
@@ -135,7 +137,7 @@
     basicAnimation1.fromValue = @(2*M_PI);
     basicAnimation1.toValue = @0;
     basicAnimation1.duration = 15;
-    basicAnimation1.repeatCount = 100;
+    basicAnimation1.repeatCount = HUGE_VALF;
     basicAnimation1.removedOnCompletion = NO;
     basicAnimation1.fillMode = kCAFillModeBoth;
     [logoBackImg.layer addAnimation:basicAnimation1 forKey:@"rotation"];
@@ -145,7 +147,7 @@
     basicAnimation.fromValue = @0;
     basicAnimation.toValue = @(2*M_PI);
     basicAnimation.duration = 15;
-    basicAnimation.repeatCount = 100;
+    basicAnimation.repeatCount = HUGE_VALF;
     basicAnimation.removedOnCompletion = NO;
     basicAnimation.fillMode = kCAFillModeBoth;
     [headerRing.layer addAnimation:basicAnimation forKey:@"rotation"];
@@ -332,111 +334,133 @@
             [self.activityHUD dismissWithText:@"如果没有账号请前往注册" delay:0.7 success:NO];
         });
         
-    }else{
-    
-    if ([self.secret.text isEqualToString:@"1"] && [self.phone.text isEqualToString:@"1"]) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.phone.text forKey:@"username"];
-        
-        MineInfModel *model = [[MineInfModel alloc]init];
-        model.username = @"大白";
-        model.usericon = [UIImage imageNamed:@"defult_header_icon"];
-        model.moneynum = @"1000";
-        
-        model.userAuthName = @"未认证";
-        model.Mymoney = @"1000000";
-        model.userkind = @"engineer";
-        model.leftlabelnum = @"6";
-        model.rightlabelnum = @"8.9";
-        
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];
-        NSUserDefaults *users = [NSUserDefaults standardUserDefaults];
-        [users setObject:data forKey:@"USER"];
-
-        ZSTabBarController *tab = [[ZSTabBarController alloc]init];
-        
-        ZSNavigationController *nav = [[ZSNavigationController alloc]initWithRootViewController:tab];
-        self.view.window.rootViewController = nav;
     }else {
-        
-        /**
-         *  测试账号⤴️
-         */
-  
-        NSDictionary *dict =@{
-                              @"password":self.secret.text,
-                              @"mobile":self.phone.text,
-                            };
-        AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
-        manage.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
-        [manage POST:@LoginURL parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        } progress:^(NSProgress * _Nonnull uploadProgress) {
-            [_loginbtn setTitle:@"正在登录" forState:UIControlStateNormal];
-            _loginbtn.userInteractionEnabled = NO;
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"%@",dic);
-            NSLog(@"%@",[dic objectForKey:@"code"]);
-            [_loginbtn setTitle:@"登    录" forState:UIControlStateNormal];
-            _loginbtn.userInteractionEnabled = YES;
-            NSInteger str = [[dic objectForKey:@"code"] integerValue];
-            if (str == 200) {
+    
+        if ([self.secret.text isEqualToString:@"1"] && [self.phone.text isEqualToString:@"1"]) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:self.phone.text forKey:@"username"];
+            
+            MineInfModel *model = [[MineInfModel alloc]init];
+            model.username = @"大白";
+            model.usericon = [UIImage imageNamed:@"defult_header_icon"];
+            model.moneynum = @"1000";
+            
+            model.userAuthName = @"未认证";
+            model.Mymoney = @"1000000";
+            model.userkind = @"engineer";
+            model.leftlabelnum = @"6";
+            model.rightlabelnum = @"8.9";
+            
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];
+            NSUserDefaults *users = [NSUserDefaults standardUserDefaults];
+            [users setObject:data forKey:@"USER"];
+
+            ZSTabBarController *tab = [[ZSTabBarController alloc]init];
+            
+            ZSNavigationController *nav = [[ZSNavigationController alloc]initWithRootViewController:tab];
+            self.view.window.rootViewController = nav;
+            
+        }else {
+            
+            /**
+             *  测试账号⤴️
+             */
+      
+            NSDictionary *dict = @{
+                                  @"password":self.secret.text,
+                                  @"mobile":self.phone.text,
+                                 };
+            AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
+            manage.responseSerializer = [AFHTTPResponseSerializer serializer];
+            
+            [manage POST:@LoginURL parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            } progress:^(NSProgress * _Nonnull uploadProgress) {
+                [_loginbtn setTitle:@"正在登录" forState:UIControlStateNormal];
+                _loginbtn.userInteractionEnabled = NO;
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+                NSLog(@"dic: %@",dic);
+                NSLog(@"code: %@",[dic objectForKey:@"code"]);
+                [_loginbtn setTitle:@"登    录" forState:UIControlStateNormal];
+                _loginbtn.userInteractionEnabled = YES;
+                NSInteger str = [[dic objectForKey:@"code"] integerValue];
+                if (str == 200) {
+                    
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:self.phone.text forKey:@"username"];
+                    
+                    MineInfModel *model = [[MineInfModel alloc]init];
+                    model.username = [[dic objectForKey:@"data"] objectForKey:@"contact"];
+                    model.usericon = [UIImage imageNamed:@"defult_header_icon"];
+                    model.moneynum = @"1000";
+                    model.userAuthName = @"未认证";
+                    model.Mymoney = @"1000000";
+                    model.leftlabelnum = @"6";
+                    model.rightlabelnum = @"8";
+                    model.userkind = @"personal";
+                    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];
+                    NSUserDefaults *users = [NSUserDefaults standardUserDefaults];
+                    [users setObject:data forKey:@"USER"];
+                    
+                    ZSHomeViewController *home = [[ZSHomeViewController alloc]init];
+                    ZSTabBarController *tab = [[ZSTabBarController alloc]init];
+                    
+                    ZSNavigationController *nav = [[ZSNavigationController alloc]initWithRootViewController:tab];
+                    self.view.window.rootViewController = nav;
+#warning 这边添加选择种类跳转分为第三方登录 还是账号密码登录--
+                    /**
+                     验证成功后进入注册界面
+                     
+                     */
+                    //[self commitverifyCode];
+                    
+                    [self.navigationController pushViewController:home animated:YES];
+                }else if (str == 201) {
+                    
+                    [self.activityHUD showWithText:@"密码输入错误" shimmering:YES];
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [self.activityHUD dismissNoSecondView];
+                    });
+            
+                }else if (str == 202) {
+                    
+                    [self.activityHUD showWithText:@"账号输入错误" shimmering:YES];
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [self.activityHUD dismissNoSecondView];
+                    });
+                }
+//                else {
+//                    
+//                    NSLog(@"登录失败");
+//                    
+//                    [self.activityHUD showWithText:@"登录失败" shimmering:YES];
+//                    
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        
+//                        [self.activityHUD dismissWithText:@"账号密码输入错误" delay:0.7];
+//                    });
+//
+//                }
+              
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:self.phone.text forKey:@"username"];
-                
-                MineInfModel *model = [[MineInfModel alloc]init];
-                model.username = [[dic objectForKey:@"data"] objectForKey:@"contact"];
-                model.usericon = [UIImage imageNamed:@"defult_header_icon"];
-                model.moneynum = @"1000";
-                model.userAuthName = @"未认证";
-                model.Mymoney = @"1000000";
-                model.leftlabelnum = @"6";
-                model.rightlabelnum = @"8";
-                model.userkind = @"personal";
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];
-                NSUserDefaults *users = [NSUserDefaults standardUserDefaults];
-                [users setObject:data forKey:@"USER"];
-                
-                ZSHomeViewController *home = [[ZSHomeViewController alloc]init];
-                ZSTabBarController *tab = [[ZSTabBarController alloc]init];
-                
-                ZSNavigationController *nav = [[ZSNavigationController alloc]initWithRootViewController:tab];
-                self.view.window.rootViewController = nav;
-    #warning 这边添加选择种类跳转分为第三方登录 还是账号密码登录--
-                /**
-                 验证成功后进入注册界面
-                 
-                 */
-                //[self commitverifyCode];
-                
-                [self.navigationController pushViewController:home animated:YES];
-            }else {
+                NSString *errorStr = [NSString stringWithFormat:@"%@",error];
+                NSLog(@"error: %@",errorStr);
                 
                 [self.activityHUD showWithText:@"登录失败" shimmering:YES];
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                    [self.activityHUD dismissWithText:@"账号密码输入错误" delay:0.7];
+                    [self.activityHUD dismissWithText:@"请检查数据连接" delay:0.7];
                 });
-            }
-          
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-            NSString *errorStr = [NSString stringWithFormat:@"%@",error];
-            NSLog(@"error:%@",errorStr);
-            
-            [self.activityHUD showWithText:@"登录失败" shimmering:YES];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                [self.activityHUD dismissWithText:@"请检查数据连接" delay:0.7];
-            });
-            
-            [_loginbtn setTitle:@"登录" forState:UIControlStateNormal];
-            _loginbtn.userInteractionEnabled = YES;
-        }];
+                [_loginbtn setTitle:@"登    录" forState:UIControlStateNormal];
+                _loginbtn.userInteractionEnabled = YES;
+            }];
 
         }
     }
@@ -446,10 +470,16 @@
 - (void)commitverifyCode {
     [SMSSDK commitVerificationCode:_messageTF.text phoneNumber:_phone.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
         if (!error) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"成功" message:@"验证码验证成功"  delegate:self cancelButtonTitle:@"确定"  otherButtonTitles:nil, nil];
-            [alert show];
+            
+            [self.activityHUD showWithText:@"验证成功" shimmering:YES];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.activityHUD dismissNoSecondView];
+            });
             
         }else {
+            
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"codesenderrtitle", nil) message:[NSString stringWithFormat:@"错误描述：%@",error.debugDescription]  delegate:self cancelButtonTitle:@"确定"  otherButtonTitles:nil, nil];
             NSLog(@"%@",error.debugDescription);
             [alert show];

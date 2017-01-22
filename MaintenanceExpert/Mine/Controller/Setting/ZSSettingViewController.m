@@ -140,7 +140,7 @@
     basicAnimation1.fromValue = @(2*M_PI);
     basicAnimation1.toValue = @0;
     basicAnimation1.duration = 15;
-    basicAnimation1.repeatCount = 20;
+    basicAnimation1.repeatCount = HUGE_VALF;
     basicAnimation1.removedOnCompletion = NO;
     basicAnimation1.fillMode = kCAFillModeBoth;
     [backimageview.layer addAnimation:basicAnimation1 forKey:@"rotation"];
@@ -184,11 +184,11 @@
             [cell addSubview:mySwitch];
             [mySwitch setOn:NO animated:YES];
             
-            mySwitch.onTintColor = [UIColor cyanColor];
+            mySwitch.onTintColor = ColorWithRGBA(130, 130, 220, 1);
             //  设置按钮的颜色
             mySwitch.thumbTintColor = ColorWithRGBA(50, 100, 190, 1);
             //  开关控件边框的颜色
-            mySwitch.tintColor = [UIColor purpleColor];
+            mySwitch.tintColor = ColorWithRGBA(25, 40, 90, 1);
             
             [mySwitch addTarget: self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
 

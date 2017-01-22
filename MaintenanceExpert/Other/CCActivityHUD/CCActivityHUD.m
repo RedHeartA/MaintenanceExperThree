@@ -124,13 +124,30 @@
     }
 }
 
+//- (void)showWithGIFName:(NSString *)GIFName {
+//    if (!self.superview) {
+//        CGFloat length = ViewFrameWidth/5;
+//        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(length, length, length*3, length*3) ];
+//        self.imageView.layer.cornerRadius = self.self.cornerRadius;
+//        UIImage *gif = [UIImage animatedImageWithAnimatedGIFURL:[[NSBundle mainBundle] URLForResource:GIFName withExtension:nil]];
+//        self.imageView.image = gif;
+//        
+//        [self addSubview:self.imageView];
+//        
+//        self.useProvidedIndicator = NO;
+//        self.useProgress = NO;
+//        
+//        [self communalShowTask];
+//    }
+//}
+
 #warning 这里代码changed
 - (void)showWithGIFName:(NSString *)GIFName {
     if (!self.superview) {
-//        CGFloat length = ViewFrameWidth/5;    //  源码1 && ↓ 2
-//        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(length, length, length*3, length*3) ];
+        //        CGFloat length = ViewFrameWidth/5;    //  源码1 && ↓ 2
+        //        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(length, length, length*3, length*3) ];
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-ViewFrameWidth/2, 0, ViewFrameWidth*2, ViewFrameWidth)];
-//        self.imageView.center = CGPointMake(CGFloat x, CGFloat y);//附加代码
+        //        self.imageView.center = CGPointMake(CGFloat x, CGFloat y);//附加代码
         self.imageView.layer.cornerRadius = self.self.cornerRadius;   //  源码
         UIImage *gif = [UIImage animatedImageWithAnimatedGIFURL:[[NSBundle mainBundle] URLForResource:GIFName withExtension:nil]];
         self.imageView.image = gif;
@@ -214,7 +231,7 @@
 }
 
 #pragma mark - 自己添加的一个弹框，dismiss 时没有 view 弹出
-- (void)dismissWithNoText:(NSString *)text delay:(CGFloat)delay {
+- (void)dismissWithNoView:(NSString *)text delay:(CGFloat)delay {
     if (self.subviews) {
         
         if (self.replicatorLayer != nil) {
@@ -229,7 +246,7 @@
 }
 
 #pragma mark - 自己添加的一个弹框，dismiss 时没有图片 只有 text
-- (void)dismissWithText:(NSString *)text delay:(CGFloat)delay {
+- (void)dismissWithOnlyText:(NSString *)text delay:(CGFloat)delay {
     if (self.superview) {
         [self removeAllSubviews];
         // remove animation or GIF
@@ -245,7 +262,7 @@
             self.center = BoundsCenterFor(Screen);
         }];
         
-//        __block CGFloat length = BoundsWidthFor(Screen)/10;
+        //        __block CGFloat length = BoundsWidthFor(Screen)/10;
         
         [UIView transitionWithView:self duration:0.3 options:UIViewAnimationOptionTransitionFlipFromTop animations:nil completion:nil];
         
@@ -273,7 +290,6 @@
         }
     }
 }
-
 
 #pragma mark - public methods - dismiss the view
 - (void)dismissWithText:(NSString *)text delay:(CGFloat)delay success:(BOOL)success {
@@ -333,7 +349,7 @@
 
 - (void)dismissNoSecondView {
     
-    [self dismissWithNoText:nil delay:0];
+    [self dismissWithNoView:nil delay:0];
 }
 
 #pragma mark - life cycle
@@ -367,7 +383,7 @@
     self = [super init];
     
     if (self) {
-        self.frame = [self originalFrame];    //源码
+        self.frame = [self originalFrame];
         self.alpha = 0.7;
         self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = 5.0;

@@ -40,7 +40,7 @@
         basicAnimation.fromValue = @0;
         basicAnimation.toValue = @(2*M_PI);
         basicAnimation.duration = 10;
-        basicAnimation.repeatCount = 100;
+        basicAnimation.repeatCount = HUGE_VALF;
         basicAnimation.removedOnCompletion = NO;
         basicAnimation.fillMode = kCAFillModeBoth;
         [_headerRing.layer addAnimation:basicAnimation forKey:@"rotation"];

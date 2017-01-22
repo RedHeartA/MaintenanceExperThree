@@ -165,7 +165,8 @@ typedef NS_ENUM(NSInteger, CCActivityHUDOverlayType) {
  *  @param success A boolean indicates to display tick or cross
  *
  */
-- (void)dismissWithNoText:(NSString *)text delay:(CGFloat)delay;
+
+- (void)dismissWithOnlyText:(NSString *)text delay:(CGFloat)delay;
 
 - (void)dismissWithText:(NSString *)text delay:(CGFloat)delay;
 

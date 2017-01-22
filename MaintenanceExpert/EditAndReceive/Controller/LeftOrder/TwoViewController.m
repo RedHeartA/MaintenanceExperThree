@@ -162,7 +162,7 @@ typedef enum{
     basicAnimation1.fromValue = @(2*M_PI);
     basicAnimation1.toValue = @0;
     basicAnimation1.duration = 15;
-    basicAnimation1.repeatCount = 20;
+    basicAnimation1.repeatCount = HUGE_VALF;
     basicAnimation1.removedOnCompletion = NO;
     basicAnimation1.fillMode = kCAFillModeBoth;
     [_animationBackImage.layer addAnimation:basicAnimation1 forKey:@"rotation"];

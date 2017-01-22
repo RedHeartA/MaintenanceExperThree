@@ -111,14 +111,13 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth , KScreenHeight +20) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = ViewController_Back_Color;
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.y = -20;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.bounces = NO;
-//        _tableView.separatorColor = ColorWithRGBA(66, 248, 243, 1);//分割线颜色
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = _HeaderView;
         _tableView.tableHeaderView.userInteractionEnabled = YES;
@@ -162,7 +161,7 @@
         basicAnimation.fromValue = @0;
         basicAnimation.toValue = @(2*M_PI);
         basicAnimation.duration = 10;
-        basicAnimation.repeatCount = 100;
+        basicAnimation.repeatCount = HUGE_VALF;
         basicAnimation.removedOnCompletion = NO;
         basicAnimation.fillMode = kCAFillModeBoth;
         [_headerRing.layer addAnimation:basicAnimation forKey:@"rotation"];
@@ -690,6 +689,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.detailTextLabel.textColor = ColorWithRGBA(53, 189, 189, 1);
+        cell.backgroundColor = [UIColor clearColor];
     }
     
     NSDictionary *dict = self.dataList[indexPath.section][indexPath.row];
@@ -726,7 +726,7 @@
         UIImageView *cellBackImg = [[UIImageView alloc] initWithFrame:cell.frame];
         cellBackImg.image = [UIImage imageNamed:@"mine_cell_backImg"];
         cellBackImg.contentMode = UIViewContentModeScaleToFill;
-        
+
         cell.backgroundView = cellBackImg;
         NSDictionary *dict = self.dataList[indexPath.section][indexPath.row];
         cell.textLabel.text = dict[@"title"];
