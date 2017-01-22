@@ -76,7 +76,19 @@
     
     _dataList = [[NSMutableArray alloc]init];
     
-    [self reloaddata];
+    
+    self.activityHUD = [CCActivityHUD new];
+    self.activityHUD.isTheOnlyActiveView = NO;
+    
+    [self.activityHUD showWithGIFName:@"baymax2.gif"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.activityHUD dismissNoSecondView];
+        _tableView.userInteractionEnabled = YES;
+        
+        [self reloaddata];
+    });
 }
 
 /**
@@ -144,9 +156,9 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-//    _tableView.userInteractionEnabled = NO;
+    _tableView.userInteractionEnabled = NO;
     
-    _TOTopRight = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 30, 30)];
+    _TOTopRight = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 60, KScreenHeight - 220, 30, 30)];
     _TOTopRight.hidden = YES;
     [_TOTopRight setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
     [self.view addSubview:_TOTopRight];
@@ -229,13 +241,15 @@
     
     ZSOrderEvaluateVc *evaluateVc = [[ZSOrderEvaluateVc alloc] init];
     [self.navigationController pushViewController:evaluateVc animated:YES];
-    [_tableView removeObserver:self forKeyPath:@"contentOffset" context:nil];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     if (_activityHUD) {
         _activityHUD.hidden = YES;
     }
+    
+    [_tableView removeObserver:self forKeyPath:@"contentOffset" context:nil];
 }
 
 - (void)didReceiveMemoryWarning {

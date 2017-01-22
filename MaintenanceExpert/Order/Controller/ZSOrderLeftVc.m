@@ -69,12 +69,22 @@
     _tableView.mj_header = header;
     
     _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(upRefresh)];
-//1. 添加监听
-    //[_tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     _dataList = [[NSMutableArray alloc]init];
     
-    [self reloaddata];
+    
+    self.activityHUD = [CCActivityHUD new];
+    self.activityHUD.isTheOnlyActiveView = NO;
+    
+    [self.activityHUD showWithGIFName:@"baymax2.gif"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.activityHUD dismissNoSecondView];
+        _tableView.userInteractionEnabled = YES;
+        
+        [self reloaddata];
+    });
 }
 
 /**
@@ -143,11 +153,10 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-//    _tableView.userInteractionEnabled = NO;
+    _tableView.userInteractionEnabled = NO;
     
-    _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 50, KScreenHeight - 220, 50, 50)];
+    _TOTop = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth - 60, KScreenHeight - 220, 50, 50)];
     _TOTop.hidden = YES;
-//    _TOTop.backgroundColor = [UIColor yellowColor];
     [_TOTop setImage:[UIImage imageNamed:@"fanhuidingbu"] forState:UIControlStateNormal];
     [self.view addSubview:_TOTop];
     [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
@@ -204,7 +213,7 @@
     
     ZSDetailsViewController *leftDetailsVC = [[ZSDetailsViewController alloc] init];
     [self.navigationController pushViewController:leftDetailsVC animated:YES];
-    [_tableView removeObserver:self forKeyPath:@"contentOffset" context:nil];
+    
     
 }
 
@@ -218,6 +227,7 @@
         _activityHUD.hidden = YES;
     }
     
+    [_tableView removeObserver:self forKeyPath:@"contentOffset" context:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -227,19 +237,6 @@
 
 /*
 #pragma mark - Navigation
-
- 
- self.activityHUD = [CCActivityHUD new];
- self.activityHUD.isTheOnlyActiveView = NO;
- 
- [self.activityHUD showWithGIFName:@"baymax2.gif"];
- 
- dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
- 
- [self.activityHUD dismissNoSecondView];
- _tableView.userInteractionEnabled = YES;
-
- });
  
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
