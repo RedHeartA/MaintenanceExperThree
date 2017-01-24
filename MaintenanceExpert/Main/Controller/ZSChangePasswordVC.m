@@ -8,7 +8,23 @@
 
 #import "ZSChangePasswordVC.h"
 
+@interface ZSChangePasswordVC ()
+
+@property (strong, nonatomic) CCActivityHUD *activityHUD;
+
+@end
+
+
 @implementation ZSChangePasswordVC
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    if (self.activityHUD) {
+        
+        [self.activityHUD dismissNoSecondView];
+    }
+}
 
 - (void)viewDidLoad {
     
@@ -19,6 +35,14 @@
     self.title = @"修改密码";
     
     [self createView];
+    
+    
+    self.activityHUD = [[CCActivityHUD alloc] init];
+    self.activityHUD.backgroundColor = [UIColor blackColor];
+    self.activityHUD.isTheOnlyActiveView = NO;  //唯一的活动视图(有问题，根据情况判断  YES?NO )
+    self.activityHUD.appearAnimationType = CCActivityHUDAppearAnimationTypeZoomIn; //变大-出现
+    self.activityHUD.disappearAnimationType = CCActivityHUDDisappearAnimationTypeZoomOut; //缩小-消失
+    self.activityHUD.overlayType = CCActivityHUDOverlayTypeShadow;  //    阴影
     
 }
 
@@ -186,7 +210,7 @@
      */
     UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [doneBtn setBackgroundImage:[UIImage imageNamed:@"wancheng"] forState:UIControlStateNormal];
-    [doneBtn setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateSelected];
+    [doneBtn setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateHighlighted];
     [doneBtn setTitle:@"确定修改" forState:UIControlStateNormal];
     [doneBtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
     [doneBtn addTarget:self action:@selector(changePasswordBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,9 +228,54 @@
  */
 - (void)changePasswordBtnClick:(UIButton *)button {
     
-    button.selected = !button.selected;
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (_changePhoneNumTF.text.length == 0) {
+        [self.activityHUD showWithText:@"请输入手机号" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    } else if (_changeMessageTF.text.length == 0){
+        [self.activityHUD showWithText:@"请输入验证码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    } else if (_changeNewpasswordTF.text.length == 0){
+        [self.activityHUD showWithText:@"请输入密码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    } else if (_changeNewpasswordTwoTF.text.length == 0){
+        [self.activityHUD showWithText:@"请再次输入密码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    } else if (![_changeNewpasswordTwoTF.text isEqualToString:_changeNewpasswordTF.text]) {
+        [self.activityHUD showWithText:@"再次输入密码不一致" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    } else {
+        
+        self.activityHUD.backgroundColor = [UIColor clearColor];
+        
+        [self.activityHUD showWithGIFName:@"baymax2.gif"];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+    }
 }
 
 
@@ -273,9 +342,13 @@
         dispatch_resume(_timer);
         
     }else {
-        UIAlertView *aler = [[UIAlertView alloc]initWithTitle:@"提示" message:@"手机号码输入错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        aler.alertViewStyle = UIAlertViewStyleDefault;
-        [aler show];
+        
+        [self.activityHUD showWithText:@"手机号输入错误" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
     }
 }
 
@@ -284,14 +357,12 @@
  *  键盘响应
  *
  */
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
 }
 

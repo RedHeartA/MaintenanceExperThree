@@ -74,7 +74,7 @@
     
     
     self.activityHUD = [CCActivityHUD new];
-    self.activityHUD.isTheOnlyActiveView = YES;
+    self.activityHUD.isTheOnlyActiveView = NO;
     
     [self.activityHUD showWithGIFName:@"baymax2.gif"];
     
@@ -164,9 +164,7 @@
 }
 //2.监听的处理
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
     if ([keyPath isEqualToString:@"contentOffset"])
     {
@@ -177,9 +175,7 @@
         }else{
             [_TOTop setHidden:YES];
         }
-
     }
-    
 }
 
 

@@ -16,45 +16,58 @@
 
 #import <SMS_SDK/SMSSDK.h>
 
-typedef enum{
-    ZHProgressModeText = 0,           //文字
-    ZHProgressModeLoading,              //加载菊花
-    ZHProgressModeGIF,            //加载动画
-    ZHProgressModeSuccess               //成功
-    
-}ZHProgressMode;
+//typedef enum{
+//    ZHProgressModeText = 0,           //文字
+//    ZHProgressModeLoading,              //加载菊花
+//    ZHProgressModeGIF,            //加载动画
+//    ZHProgressModeSuccess               //成功
+//    
+//}ZHProgressMode;
 
-@interface ZSRegisterViewController ()<ZHBtnSelectViewDelegate,UIAlertViewDelegate,UITextFieldDelegate>{
+@interface ZSRegisterViewController ()<ZHBtnSelectViewDelegate,UITextFieldDelegate>{
     
     BOOL _yanzhengmaRight;
+    BOOL _messageBtnSelected;
     UIButton *_messageBtn;
     UIButton *doneBtn;  //  注册按钮
     
 }
-@property (nonatomic,weak)ZHCustomBtn *currentkindBtn;
-@property (nonatomic,weak)ZHBtnSelectView *btnkindView;
+
+@property (strong, nonatomic) CCActivityHUD *activityHUD;
+@property (nonatomic,weak) ZHCustomBtn *currentkindBtn;
+@property (nonatomic,weak) ZHBtnSelectView *btnkindView;
 
 @property (nonatomic,assign)NSInteger registerkind;
 
 @property (nonatomic,strong)NSArray *kindArr;
+
 @end
 
 
 @implementation ZSRegisterViewController
 
 
-//  提示 弹出框显示位置
-- (instancetype)shareinstance{
+////  提示 弹出框显示位置
+//- (instancetype)shareinstance{
+//    
+//    static ZSRegisterViewController *instance = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        instance = [[ZSRegisterViewController alloc] init];
+//    });
+//    
+//    return instance;
+//    
+//}
+
+- (void)viewWillDisappear:(BOOL)animated {
     
-    static ZSRegisterViewController *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[ZSRegisterViewController alloc] init];
-    });
-    
-    return instance;
-    
+    if (self.activityHUD) {
+        
+        [self.activityHUD dismissNoSecondView];
+    }
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,11 +80,23 @@ typedef enum{
     
     [self creatView];
     
+    _messageBtnSelected = NO;
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBG:)];
     [self.view addGestureRecognizer:tapGesture];
     self.registerkind = 109;
+    
+    
+    self.activityHUD = [[CCActivityHUD alloc] init];
+    self.activityHUD.backgroundColor = [UIColor blackColor];
+    self.activityHUD.isTheOnlyActiveView = NO;  //唯一的活动视图(有问题，根据情况判断  YES?NO )
+    self.activityHUD.appearAnimationType = CCActivityHUDAppearAnimationTypeZoomIn; //变大-出现
+    self.activityHUD.disappearAnimationType = CCActivityHUDDisappearAnimationTypeZoomOut; //缩小-消失
+    self.activityHUD.overlayType = CCActivityHUDOverlayTypeShadow;  //    阴影
+    
 }
 - (void)tapBG:(UITapGestureRecognizer *)gesture {
+    
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
@@ -333,10 +358,14 @@ typedef enum{
     /**
      *  验证码获取
      */
-    if (phoneNumRight == 0) {
+    if (phoneNumRight == NO) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"手机号输入错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        [self.activityHUD showWithText:@"手机号输入错误" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
         
     } else {
         
@@ -406,8 +435,17 @@ typedef enum{
                             result:^(NSError *error) {
         
         if (!error) {
+            
+            _messageBtnSelected = YES;
             NSLog(@"成功");
         }else {
+            
+            [self.activityHUD showWithText:@"验证码发送失败" shimmering:YES];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.activityHUD dismissWithText:@"请重新获取" delay:1 success:NO];
+            });
             NSLog(@"失败");
         }
     }];
@@ -425,15 +463,53 @@ typedef enum{
 
     BOOL phoneright = [[Regex class] isMobile:_registerPhoneNumTF.text];
     
+    NSLog(@"BOOL111:%d",_yanzhengmaRight);
+    
     if (phoneright == 0) {
 
-        [self showMessage:@"请输入正确手机号" inView:self.view];
-    }else {
+        [self.activityHUD showWithText:@"请输入正确的手机号" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+        
+    }else if (_registerMessageTF.text.length == 0) {
+        
+        [self.activityHUD showWithText:@"请输入验证码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    }else if (_registerPasswordTF.text.length == 0) {
+        
+        [self.activityHUD showWithText:@"请输入密码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    }else if (_registerPasswordTwoTF.text.length == 0) {
+        
+        [self.activityHUD showWithText:@"请再次输入密码" shimmering:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.activityHUD dismissNoSecondView];
+        });
+    }
+    else {
         
         if (self.registerkind == 109) {
             
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请选择类型" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            [self.activityHUD showWithText:@"请选择注册类型" shimmering:YES];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.activityHUD dismissNoSecondView];
+            });
+        
         }else {
             
             [doneBtn setTitle:@"验证中。。。" forState:UIControlStateNormal];
@@ -457,84 +533,141 @@ typedef enum{
                                      验证成功后进入注册界面
                                      */
                                     _yanzhengmaRight = YES;
+                                    
+                                    NSLog(@"BOOL222:%d",_yanzhengmaRight);
+                                    
+                                    if (_registerPasswordTF.text.length < 6 || _registerPasswordTwoTF.text.length < 6) {
                                         
-                                    if (_registerPasswordTF.text.length < 6) {
+                                        [self.activityHUD showWithText:@"请输入6位以上密码" shimmering:YES];
                                         
-                                        [self showMessage:@"请输入6位以上密码" inView:self.view];
-                                    }else {
-                                        
-                                        if (![_registerPasswordTF.text isEqualToString:_registerPasswordTwoTF.text]) {
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                                            [self.activityHUD dismissNoSecondView];
                                             
-                                            [self showMessage:@"密码不相同" inView:self.view];
-                                        }else {
+                                            [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
+                                            doneBtn.userInteractionEnabled = YES;
+                                        });
+                                        
+                                    }
+#warning if-phoneNum->password(wrong)->messageNum---->BUG!!!
+                                    
+                                    else if (![_registerPasswordTwoTF.text isEqualToString:_registerPasswordTF.text]) {
                                             
-                                            if (self.registerkind == 110 || self.registerkind == 111) {
+                                            [self.activityHUD showWithText:@"两次密码输入不相同" shimmering:YES];
+                                            
+                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                 
-                                                ZSRegisterCustomerVC* custormerVC = [[ZSRegisterCustomerVC alloc] init];
-                                                [self.navigationController pushViewController:custormerVC animated:YES];
+                                                [self.activityHUD dismissNoSecondView];
                                                 
-                                            }else if (self.registerkind == 112) {
+                                                [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
+                                                doneBtn.userInteractionEnabled = YES;
+                                            });
+                                        }
+                                    else {
+                                            
+                                            [doneBtn setTitle:@"验证中。。。" forState:UIControlStateNormal];
+                                            doneBtn.userInteractionEnabled = NO;
+                                            
+                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                 
-                                                ZSRegisterBusinessVc *businessVc = [[ZSRegisterBusinessVc alloc] init];
-                                                [self.navigationController pushViewController:businessVc animated:YES];
+                                                if (self.registerkind == 110 || self.registerkind == 111) {
+                                                    
+                                                    ZSRegisterCustomerVC* custormerVC = [[ZSRegisterCustomerVC alloc] init];
+                                                    [self.navigationController pushViewController:custormerVC animated:YES];
+                                                    
+                                                }else if (self.registerkind == 112) {
+                                                    
+                                                    ZSRegisterBusinessVc *businessVc = [[ZSRegisterBusinessVc alloc] init];
+                                                    [self.navigationController pushViewController:businessVc animated:YES];
+                                                    
+                                                }else if (self.registerkind == 113) {
+                                                    
+                                                    ZSRegisterHardwareVc *hardwareVc = [[ZSRegisterHardwareVc alloc] init];
+                                                    [self.navigationController pushViewController:hardwareVc animated:YES];
+                                                }
                                                 
-                                            }else if (self.registerkind == 113) {
-                                                
-                                                ZSRegisterHardwareVc *hardwareVc = [[ZSRegisterHardwareVc alloc] init];
-                                                [self.navigationController pushViewController:hardwareVc animated:YES];
-                                            }
+                                                if (![_registerPhoneNumTF.text isEqualToString:@""] ||
+                                                    ![_registerMessageTF.text isEqualToString:@""] ||
+                                                    ![_registerPasswordTF.text isEqualToString:@""] ||
+                                                    ![_registerPasswordTwoTF.text isEqualToString:@""])
+                                                {
+                                                    _registerPhoneNumTF.text = @"";
+                                                    _registerMessageTF.text = @"";
+                                                    _registerPasswordTF.text = @"";
+                                                    _registerPasswordTwoTF.text = @"";
+                                                }
+                                            });
                                         }
                                         
                                         [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
                                         doneBtn.userInteractionEnabled = YES;
-                                        
-                                        if (![_registerPhoneNumTF.text isEqualToString:@""] ||
-                                            ![_registerMessageTF.text isEqualToString:@""] ||
-                                            ![_registerPasswordTF.text isEqualToString:@""] ||
-                                            ![_registerPasswordTwoTF.text isEqualToString:@""])
-                                        {
-                                            _registerPhoneNumTF.text = @"";
-                                            _registerMessageTF.text = @"";
-                                            _registerPasswordTF.text = @"";
-                                            _registerPasswordTwoTF.text = @"";
-                                        }
-                                    }
                                     
                                 }else {
                                     
+                                    
+                                    NSLog(@"error:%@",error);
+
+                                    
+                                    //  验证码输入是否正确？
                                     _yanzhengmaRight = NO;
+                                    
+                                    
+                                    NSLog(@"BOOL333:%d",_yanzhengmaRight);
+                                    if (_yanzhengmaRight == NO) {
+                                        
+                                        [self.activityHUD showWithText:@"验证码输入错误" shimmering:YES];
+                                        
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            
+                                            [self.activityHUD dismissNoSecondView];
+                                            
+                                            [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
+                                            doneBtn.userInteractionEnabled = YES;
+                                        });
+                                    }else if (_messageBtnSelected == NO) {
+                                        
+                                        [self.activityHUD showWithText:@"请获取验证码" shimmering:YES];
+                                        
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                            
+                                            [self.activityHUD dismissNoSecondView];
+                                            
+                                            [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
+                                            doneBtn.userInteractionEnabled = YES;
+                                        });
+                                    }
                                 }
                             }];
 }
 
-#pragma mark - 提示弹出框--自动消失[self showMessage: inView:]
-- (void)show:(NSString *)msg inView:(UIView *)view mode:(ZHProgressMode *)myMode{
-    
-    [self shareinstance].regHud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    [self shareinstance].regHud.color = [UIColor blackColor];
-    [[self shareinstance].regHud setMargin:10];
-    [self shareinstance].regHud.mode = MBProgressHUDModeText;
-    [[self shareinstance].regHud setRemoveFromSuperViewOnHide:YES];
-    [self shareinstance].regHud.detailsLabel.text = msg;
-    [self shareinstance].regHud.contentColor = [UIColor whiteColor];
-    [self shareinstance].regHud.detailsLabel.font = [UIFont systemFontOfSize:14];
-}
-//  提示框消失
-- (void)hide {
-    if ([self shareinstance].regHud != nil) {
-        [[self shareinstance].regHud hideAnimated:YES];
-    }
-}
-//  提示框显示
-- (void)showMessage:(NSString *)msg inView:(UIView *)view {
-    [self show:msg inView:view mode:ZHProgressModeText];
-    [[self shareinstance].regHud hideAnimated:YES afterDelay:1];
-    //用于关闭当前提示
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self hide];
-        
-    });
-}
+//#pragma mark - 提示弹出框--自动消失[self showMessage: inView:]
+//- (void)show:(NSString *)msg inView:(UIView *)view mode:(ZHProgressMode *)myMode{
+//    
+//    [self shareinstance].regHud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//    [self shareinstance].regHud.color = [UIColor blackColor];
+//    [[self shareinstance].regHud setMargin:10];
+//    [self shareinstance].regHud.mode = MBProgressHUDModeText;
+//    [[self shareinstance].regHud setRemoveFromSuperViewOnHide:YES];
+//    [self shareinstance].regHud.detailsLabel.text = msg;
+//    [self shareinstance].regHud.contentColor = [UIColor whiteColor];
+//    [self shareinstance].regHud.detailsLabel.font = [UIFont systemFontOfSize:14];
+//}
+////  提示框消失
+//- (void)hide {
+//    if ([self shareinstance].regHud != nil) {
+//        [[self shareinstance].regHud hideAnimated:YES];
+//    }
+//}
+////  提示框显示
+//- (void)showMessage:(NSString *)msg inView:(UIView *)view {
+//    [self show:msg inView:view mode:ZHProgressModeText];
+//    [[self shareinstance].regHud hideAnimated:YES afterDelay:1];
+//    //用于关闭当前提示
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self hide];
+//        
+//    });
+//}
 
 /**
  *  键盘响应
@@ -544,6 +677,35 @@ typedef enum{
     [textField resignFirstResponder];
     return YES;
 }
+
+//- (void)textFieldDidEndEditing:( UITextField *)textField {
+//    
+//    
+//    UILabel *label = [[UILabel alloc] init];
+//    label.hidden = NO;
+//    if (![_registerPasswordTwoTF.text isEqualToString:_registerPasswordTF.text]) {
+//
+//        label.text = @"X";
+//        label.textColor = TextField_Text_Color;
+//        [self.view addSubview:label];
+//        label.sd_layout.topEqualToView(_registerPasswordTwoTF)
+//        .leftSpaceToView(_registerPasswordTwoTF, 10)
+//        .widthIs(20)
+//        .heightIs(20);
+//        
+////        [self.activityHUD showWithText:@"两次密码输入不相同" shimmering:YES];
+////        
+////        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////            
+////            [self.activityHUD dismissNoSecondView];
+////            
+////            [doneBtn setTitle:@"注    册" forState:UIControlStateNormal];
+////            doneBtn.userInteractionEnabled = YES;
+////        });
+//    }else {
+//        label.hidden = YES;
+//    }
+//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [_registerMessageTF resignFirstResponder];

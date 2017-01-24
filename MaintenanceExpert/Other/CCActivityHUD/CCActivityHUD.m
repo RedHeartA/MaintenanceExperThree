@@ -1069,7 +1069,7 @@
     CAGradientLayer *gradientMask = [CAGradientLayer layer];
     gradientMask.frame = label.bounds;
     CGFloat gradientSize = FrameWidthFor(label)/6 / FrameWidthFor(label);
-    UIColor *gradient = [UIColor colorWithWhite:1.0f alpha:0.4];
+    UIColor *gradient = [UIColor colorWithWhite:1.0f alpha:0.7];
     NSArray *startLocations = @[[NSNumber numberWithFloat:0.0f], [NSNumber numberWithFloat:(gradientSize / 2)], [NSNumber numberWithFloat:gradientSize]];
     NSArray *endLocations = @[[NSNumber numberWithFloat:(1.0f - gradientSize)], [NSNumber numberWithFloat:(1.0f -(gradientSize / 2))], [NSNumber numberWithFloat:1.0f]];
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];

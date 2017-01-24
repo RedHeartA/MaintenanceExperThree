@@ -78,7 +78,7 @@
     
     
     self.activityHUD = [CCActivityHUD new];
-    self.activityHUD.isTheOnlyActiveView = YES;
+    self.activityHUD.isTheOnlyActiveView = NO;
     
     [self.activityHUD showWithGIFName:@"baymax2.gif"];
     
