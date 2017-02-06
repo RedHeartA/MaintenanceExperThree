@@ -102,7 +102,7 @@
     [self reloaddata];
 }
 
-#pragma mark ---- 刷新数据
+#pragma mark - 刷新数据
 - (void)reloaddata{
     
     NSDictionary *dic = [[NSDictionary alloc] init];
@@ -146,7 +146,7 @@
 
 - (void)creatTableView {
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 128) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 136) style:UITableViewStylePlain];
     _tableView.backgroundColor = ViewController_Back_Color;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;  //  设置分割线
     _tableView.delegate = self;
@@ -209,7 +209,6 @@
     
     ZSDetailsViewController *leftDetailsVC = [[ZSDetailsViewController alloc] init];
     [self.navigationController pushViewController:leftDetailsVC animated:YES];
-    
     
 }
 
