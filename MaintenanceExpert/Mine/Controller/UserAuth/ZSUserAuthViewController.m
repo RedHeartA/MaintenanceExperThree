@@ -88,7 +88,7 @@ typedef enum{
     [self.view addSubview:backView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 60, 30)];
-    label.text = @"姓名";
+    label.text = @"姓    名";
     label.textColor = Label_Color;
     [backView addSubview:label];
     
@@ -104,7 +104,7 @@ typedef enum{
     
     
     //  line
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(75, 45, KScreenWidth - 85, 1)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(75, 47, KScreenWidth - 85, 1)];
     lineView.backgroundColor = Line_Color;
     [backView addSubview:lineView];
     

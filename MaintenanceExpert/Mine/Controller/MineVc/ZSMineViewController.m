@@ -231,7 +231,19 @@
 }
 
 - (void)setupHeaderView {
-    _HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
+    
+    if (iPhone5SE) {
+        
+        _HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 187)];
+    }else if (iPhone6_6s) {
+        
+        _HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 200)];
+    }else if (iPhone6Plus_6sPlus) {
+        
+        _HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 210)];
+    }
+    
+//    _HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 220)];
     _HeaderView.userInteractionEnabled = YES;
     _HeaderView.backgroundColor = ColorWithRGBA(23, 42, 79, 1);
 //    _HeaderView.contentMode = UIViewContentModeScaleAspectFill;
@@ -554,7 +566,7 @@
 
 /**
  *
- *  @param taps 点击头像按钮的时间
+ *  @param taps 点击头像按钮的事件
  */
 
 
@@ -803,7 +815,7 @@
         [self.navigationController pushViewController:vc animated:YES];
         
         //  清理缓存
-    }else if (indexPath.section == 2 && indexPath.row == 0) {
+    }else if (indexPath.section == 3 && indexPath.row == 0) {
         
         fileSize = [NSString stringWithFormat:@"%.2f M", [self showFilePath]];
                     

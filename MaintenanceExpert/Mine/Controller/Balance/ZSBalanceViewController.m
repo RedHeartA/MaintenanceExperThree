@@ -74,7 +74,14 @@
 
 - (void)creatMoneyImage {
     
-    _backView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, KScreenWidth - 20, KScreenHeight * 0.3)];
+    if (iPhone5SE) {
+        
+        _backView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, KScreenWidth - 20, KScreenHeight * 0.32)];
+    }else {
+        
+        _backView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, KScreenWidth - 20, KScreenHeight * 0.3)];
+    }
+    
     _backView.backgroundColor = UIView_BackView_color;
     _backView.layer.cornerRadius = 2;
     _backView.layer.shadowOffset = CGSizeMake(0, 2);

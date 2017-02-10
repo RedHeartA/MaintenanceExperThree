@@ -132,7 +132,7 @@
     .leftSpaceToView(_imgXunJian, 1)
     .widthIs(60)
     .heightIs(15);
-    
+    _xunjianLabel = xunjianLabel;
     
     //  横线
     UIView *line = [[UIView alloc] init];
@@ -143,10 +143,10 @@
     .rightSpaceToView(_bgView, 0)
     .heightIs(1);
     
-    //  发布日期
+    //  完成日期
     _releaseTime = [[UILabel alloc] init];
     //    _releaseTime.backgroundColor = [UIColor cyanColor];
-    //_releaseTime.text = @"发布日期:2016年09月01日";
+    //_releaseTime.text = @"完成日期:2016年09月01日";
     _releaseTime.textColor = Home_Order_secendColor;
     [_releaseTime setFont:[UIFont systemFontOfSize:10]];
     [_bgView addSubview:_releaseTime];
@@ -155,32 +155,31 @@
     .widthIs(130)
     .heightIs(10);
     
-    //  剩余时间
-    _timeShengYu = [[UILabel alloc] init];
-    //    _timeShengYu.backgroundColor = [UIColor cyanColor];
-    _timeShengYu.text = @"还剩7天1小时";
-    _timeShengYu.textColor = Home_Order_secendColor;
-    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
-    [_bgView addSubview:_timeShengYu];
-    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
-    .rightEqualToView(_releaseTime)
-    .widthIs(80)
-    .heightIs(10);
+//    //  剩余时间
+//    _timeShengYu = [[UILabel alloc] init];
+//    //    _timeShengYu.backgroundColor = [UIColor cyanColor];
+//    _timeShengYu.text = @"还剩7天1小时";
+//    _timeShengYu.textColor = Home_Order_secendColor;
+//    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
+//    [_bgView addSubview:_timeShengYu];
+//    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
+//    .rightEqualToView(_releaseTime)
+//    .widthIs(80)
+//    .heightIs(10);
     
     
-    //  下次巡检时间/发布日期
-    UILabel *xunjianlabel = [[UILabel alloc] init];
-    //    _nextXunJian.backgroundColor = [UIColor cyanColor];
-    //_nextXunJian.text = @"下次巡检:2016年10月28日";
-    xunjianlabel.textColor = Home_Order_secendColor;
-    [xunjianlabel setFont:[UIFont systemFontOfSize:10]];
-    [_bgView addSubview:xunjianlabel];
-    xunjianlabel.sd_layout.rightSpaceToView(_bgView, 8);
-    xunjianlabel.sd_layout.bottomSpaceToView(_timeShengYu, 1)
-    .rightEqualToView(_timeShengYu)
-    .widthIs(130)
-    .heightIs(10);
-    _xunjianLabel = xunjianLabel;
+//    //  下次巡检时间/发布日期
+//    UILabel *xunjianlabel = [[UILabel alloc] init];
+//    //    _nextXunJian.backgroundColor = [UIColor cyanColor];
+//    //_nextXunJian.text = @"下次巡检:2016年10月28日";
+//    xunjianlabel.textColor = Home_Order_secendColor;
+//    [xunjianlabel setFont:[UIFont systemFontOfSize:10]];
+//    [_bgView addSubview:xunjianlabel];
+//    xunjianlabel.sd_layout.rightSpaceToView(_bgView, 8);
+//    xunjianlabel.sd_layout.bottomSpaceToView(_timeShengYu, 1)
+//    .rightEqualToView(_timeShengYu)
+//    .widthIs(130)
+//    .heightIs(10);
     
     //  联系
     UIButton *callBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -253,7 +252,7 @@
     _address.text = self.model.title;
     _money.text = [NSString stringWithFormat:@"¥%@/次*12",self.model.price];
     _xunjianLabel.text = self.model.orderStatus;
-    _releaseTime.text = [NSString stringWithFormat:@"发布日期:%@",self.model.pushorderTime];
+    _releaseTime.text = [NSString stringWithFormat:@"完成日期:%@",self.model.pushorderTime];
     _nextXunJian.text = [NSString stringWithFormat:@"下次巡检:%@",self.model.receiveorderTime];
     
 }

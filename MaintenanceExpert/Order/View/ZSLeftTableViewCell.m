@@ -156,17 +156,17 @@
     .widthIs(130)
     .heightIs(10);
     
-    //  剩余时间
-    _timeShengYu = [[UILabel alloc] init];
-//    _timeShengYu.backgroundColor = [UIColor cyanColor];
-    _timeShengYu.text = @"还剩7天1小时";
-    _timeShengYu.textColor = Home_Order_secendColor;
-    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
-    [_bgView addSubview:_timeShengYu];
-    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
-    .rightEqualToView(_releaseTime)
-    .widthIs(80)
-    .heightIs(10);
+//    //  剩余时间
+//    _timeShengYu = [[UILabel alloc] init];
+////    _timeShengYu.backgroundColor = [UIColor cyanColor];
+//    _timeShengYu.text = @"还剩7天1小时";
+//    _timeShengYu.textColor = Home_Order_secendColor;
+//    [_timeShengYu setFont:[UIFont systemFontOfSize:10]];
+//    [_bgView addSubview:_timeShengYu];
+//    _timeShengYu.sd_layout.bottomSpaceToView(_releaseTime, 1)
+//    .rightEqualToView(_releaseTime)
+//    .widthIs(80)
+//    .heightIs(10);
     
     
     //  下次巡检时间/发布日期
@@ -177,8 +177,8 @@
     [_nextXunJian setFont:[UIFont systemFontOfSize:10]];
     [_bgView addSubview:_nextXunJian];
     _nextXunJian.sd_layout.rightSpaceToView(_bgView, 8);
-    _nextXunJian.sd_layout.bottomSpaceToView(_timeShengYu, 1)
-    .rightEqualToView(_timeShengYu)
+    _nextXunJian.sd_layout.bottomSpaceToView(_releaseTime, 3)
+    .rightEqualToView(_releaseTime)
     .widthIs(130)
     .heightIs(10);
     

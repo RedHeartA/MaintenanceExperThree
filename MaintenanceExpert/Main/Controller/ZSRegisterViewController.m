@@ -188,7 +188,7 @@
                         range:NSMakeRange(0, phoneNumStr.length)];
     _registerPhoneNumTF.attributedPlaceholder = placeholder;
     [backView addSubview:_registerPhoneNumTF];
-    //_registerPhoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
+    _registerPhoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
     _registerPhoneNumTF.clearButtonMode = UITextFieldViewModeAlways;
     _registerPhoneNumTF.returnKeyType = UIReturnKeyDone;
     _registerPhoneNumTF.sd_layout.topSpaceToView(backView, TOP_LABEL_HEIGHT)

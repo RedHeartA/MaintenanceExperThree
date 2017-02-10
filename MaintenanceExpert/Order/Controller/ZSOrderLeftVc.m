@@ -78,7 +78,7 @@
     
     [self.activityHUD showWithGIFName:@"baymax2.gif"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.activityHUD dismissNoSecondView];
         _tableView.userInteractionEnabled = YES;
@@ -133,7 +133,7 @@
     }
     //刷新表视图
     [_tableView reloadData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [_tableView.mj_header endRefreshing];
     });
@@ -162,8 +162,8 @@
     [_TOTop addTarget:self action:@selector(totop) forControlEvents:UIControlEventTouchUpInside];
     
 }
-//2.监听的处理
 
+//2.监听的处理
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
     if ([keyPath isEqualToString:@"contentOffset"])

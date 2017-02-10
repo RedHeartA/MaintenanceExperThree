@@ -29,7 +29,7 @@
     MineInfModel *_Model;
     UISwitch* mySwitch;
 }
-@property (nonatomic,strong) UITableView *tableview;;
+@property (nonatomic,strong) UITableView *tableview;
 @property (strong, nonatomic) NSArray *dateListArr;
 
 @end

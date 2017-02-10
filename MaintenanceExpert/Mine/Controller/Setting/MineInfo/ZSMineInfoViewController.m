@@ -180,7 +180,7 @@
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 59, _tableview.frame.size.width, 1)];
             line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
             [cell addSubview:line];
-        }else {
+        }else if (indexPath.row == 1) {
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, LineInCell_height, _tableview.frame.size.width, 1)];
             line.backgroundColor = ColorWithRGBA(22, 94, 150, 1);
             [cell addSubview:line];
@@ -202,7 +202,7 @@
         case 0:
             if (indexPath.row == 0) {
                 
-                _icon = [[UIImageView alloc] initWithFrame:CGRectMake(cell.frame.size.width - 30, 10, 40, 40)];
+                _icon = [[UIImageView alloc] initWithFrame:CGRectMake(KScreenWidth - 85, 10, 40, 40)];
                 _icon.backgroundColor = [UIColor blueColor];
                 _icon.image = _Model.usericon;
                 _icon.contentMode = UIViewContentModeScaleToFill;

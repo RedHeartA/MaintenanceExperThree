@@ -66,7 +66,16 @@
     [self.navigationBar addSubview:view];
     
     UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 44)];
-    image.image =[UIImage imageNamed:@"navgation"];
+    
+    if (iPhone5SE) {
+        image.image =[UIImage imageNamed:@"navgation_5s"];
+    }else if (iPhone6_6s) {
+        
+        image.image =[UIImage imageNamed:@"navgation"];
+    }else if (iPhone6Plus_6sPlus) {
+        
+        image.image =[UIImage imageNamed:@"navgation_plus"];
+    }
     //image.backgroundColor = ColorWithRGBA(13, 29, 52, 1);
     image.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationBar addSubview:image];

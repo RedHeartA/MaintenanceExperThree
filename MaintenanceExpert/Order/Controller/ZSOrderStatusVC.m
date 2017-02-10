@@ -33,6 +33,7 @@
     
 }
 
+#warning **5s bug!!!!!!!!!!!!!!!!!!!!!
 - (void)viewDidLoad{
     
     [super viewDidLoad];

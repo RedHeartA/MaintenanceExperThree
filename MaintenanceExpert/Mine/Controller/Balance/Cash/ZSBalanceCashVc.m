@@ -101,14 +101,14 @@
     .heightIs(30);
     
     //  按钮
-    UIButton *chooseCard = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chooseCard setBackgroundImage:[UIImage imageNamed:@"wancheng"] forState:UIControlStateNormal];
-    [chooseCard setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateHighlighted];
-    [BGView addSubview:chooseCard];
-    chooseCard.sd_layout.topSpaceToView(BGView, 28)
-    .leftSpaceToView(_cashCardNumb, 20)
-    .heightIs(15)
-    .widthIs(15);
+//    UIButton *chooseCard = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [chooseCard setBackgroundImage:[UIImage imageNamed:@"wancheng"] forState:UIControlStateNormal];
+//    [chooseCard setBackgroundImage:[UIImage imageNamed:@"wancheng-hov"] forState:UIControlStateHighlighted];
+//    [BGView addSubview:chooseCard];
+//    chooseCard.sd_layout.topSpaceToView(BGView, 28)
+//    .leftSpaceToView(_cashCardNumb, 20)
+//    .heightIs(15)
+//    .widthIs(15);
     
     //  银行卡 提现 手续费
     UILabel *xianZhi = [[UILabel alloc] init];

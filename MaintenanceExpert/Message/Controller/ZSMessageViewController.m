@@ -21,7 +21,7 @@
 
 @implementation ZSMessageViewController
 
-
+#warning ***5s tabbar bug!!!!!!!!!!!!!!!!!!!!!!
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -36,7 +36,7 @@
 
 - (void)creatTableView {
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight -64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 67) style:UITableViewStylePlain];
     self.tableView.backgroundColor = ViewController_Back_Color;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

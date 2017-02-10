@@ -63,7 +63,18 @@
     tabBar.backgroundColor = [UIColor clearColor];
     
     NSLog(@"tabBar.frame--H--%i,tabBar.frame--W--%i",(int)tabBar.frame.size.height,(int)tabBar.frame.size.width);
-    tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_backImg"];
+    
+    if (iPhone5SE) {
+        tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_backImg_5s"];
+    }else if (iPhone6_6s) {
+        
+        tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_backImg"];
+    }else if (iPhone6Plus_6sPlus) {
+        
+        tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_backImg_plus"];
+    }
+    
+//    tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_backImg"];
 //    [tabBar setContentScaleFactor:2];
     
 }

@@ -130,7 +130,15 @@
     icon.contentMode = UIViewContentModeScaleAspectFill;
     icon.userInteractionEnabled = YES;
     [headerImageV addSubview:icon];
-    icon.sd_layout.spaceToSuperView(UIEdgeInsetsMake(22, 22, 22, 22));
+    
+    if (iPhone6Plus_6sPlus) {
+        
+        icon.sd_layout.spaceToSuperView(UIEdgeInsetsMake(25, 25, 25, 25));
+    }else {
+        
+        icon.sd_layout.spaceToSuperView(UIEdgeInsetsMake(22, 22, 22, 22));
+    }
+    
 
     //  外圈
     CABasicAnimation *basicAnimation1 = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -191,7 +199,7 @@
     phonetextfield.attributedPlaceholder = placeholder;
     
     phonetextfield.clearButtonMode = UITextFieldViewModeAlways;
-    phonetextfield.keyboardType = UIKeyboardTypePhonePad;
+    phonetextfield.keyboardType = UIKeyboardTypeNumberPad;
     [phoneImgV addSubview:phonetextfield];
     phonetextfield.sd_layout.topSpaceToView(phoneImgV, 3)
     .leftSpaceToView(phoneIcon, 10)

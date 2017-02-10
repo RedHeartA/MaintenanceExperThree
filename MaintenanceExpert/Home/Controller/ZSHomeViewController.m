@@ -25,6 +25,7 @@
     UIButton *refreshBtn;   //  刷新位置
     
     UIImageView *mapBackView;    //  地图 背景图
+    Basicmapview *_mapview;
 }
 
 @property (strong, nonatomic) XRCarouselView *carouselView;
@@ -39,6 +40,9 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+//    [_tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
 }
 
 //  二级页面 显示 NavigationBar
@@ -226,22 +230,43 @@
     mapBackView.image = [UIImage imageNamed:@"home_map_backicon"];
     mapBackView.contentMode =  UIViewContentModeScaleToFill;
     [self.view addSubview:mapBackView];
-    mapBackView.sd_layout.topSpaceToView(aroundImgView, 3)
-    .leftSpaceToView(self.view, 0)
-    .widthIs(KScreenWidth)
-    .heightIs(KScreenHeight * 0.3);
     
-    Basicmapview *mapview = [[Basicmapview alloc]init];
-    mapview.layer.cornerRadius = 3;
-    [mapBackView addSubview:mapview];
-    mapview.sd_layout.spaceToSuperView(UIEdgeInsetsMake(7, 6, 6, 9));
+    if (iPhone5SE) {
+        
+        mapBackView.sd_layout.topSpaceToView(aroundImgView, 3)
+        .leftSpaceToView(self.view, 0)
+        .widthIs(KScreenWidth)
+        .heightIs(KScreenHeight * 0.25);
+    }else {
+        
+        mapBackView.sd_layout.topSpaceToView(aroundImgView, 3)
+        .leftSpaceToView(self.view, 0)
+        .widthIs(KScreenWidth)
+        .heightIs(KScreenHeight * 0.3);
+    }
+    
+    _mapview = [[Basicmapview alloc]init];
+    _mapview.layer.cornerRadius = 3;
+    [mapBackView addSubview:_mapview];
+    _mapview.sd_layout.spaceToSuperView(UIEdgeInsetsMake(7, 6, 6, 9));
     
 }
 
 //  tableView
 - (void)creatTableView {
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, aroundImgView.origin.y +25 +3 +KScreenHeight * 0.3, KScreenWidth, 200) style:UITableViewStyleGrouped];
+    if (iPhone5SE) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, aroundImgView.origin.y +25 +3 +KScreenHeight * 0.25, KScreenWidth, KScreenHeight - KScreenHeight * 0.25 - KScreenHeight*0.21 - 25 - 64 - 40) style:UITableViewStyleGrouped];
+    }else if (iPhone6_6s) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, aroundImgView.origin.y +25 +3 +KScreenHeight * 0.3, KScreenWidth, KScreenHeight - KScreenHeight * 0.3 - KScreenHeight*0.21 - 25 - 64 - 40) style:UITableViewStyleGrouped];
+    }else if (iPhone6Plus_6sPlus) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, aroundImgView.origin.y +25 +3 +KScreenHeight * 0.3, KScreenWidth, KScreenHeight - KScreenHeight * 0.3 - KScreenHeight*0.21 - 25 - 64 - 47) style:UITableViewStyleGrouped];
+    }
+    
+//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, aroundImgView.origin.y +25 +3 +KScreenHeight * 0.3, KScreenWidth, KScreenHeight - KScreenHeight * 0.3 - KScreenHeight*0.21 - 25 - 64 - 49) style:UITableViewStyleGrouped];
     _tableView.backgroundColor = ViewController_Back_Color;
     _tableView.showsVerticalScrollIndicator = NO;   //  关闭侧边滚动条
     _tableView.delegate = self;
@@ -459,6 +484,17 @@
     NSLog(@"点击了第%ld张图",index);
 }
 
+//the freezing problem happens only when run from Xcode 8.0
+- (void)dealloc
+{
+#if DEBUG
+    // Xcode8/iOS10 MKMapView bug workaround
+    static NSMutableArray* unusedObjects;
+    if (!unusedObjects)
+        unusedObjects = [NSMutableArray new];
+    [unusedObjects addObject:_mapview];
+#endif
+}
 
 /*
  #pragma mark - Navigation

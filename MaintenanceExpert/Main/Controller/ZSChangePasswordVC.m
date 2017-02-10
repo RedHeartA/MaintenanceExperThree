@@ -76,6 +76,7 @@
                         value:Placeholder_Color
                         range:NSMakeRange(0, phoneNumStr.length)];
     _changePhoneNumTF.attributedPlaceholder = placeholder;
+    _changePhoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
     [backView addSubview:_changePhoneNumTF];
     _changePhoneNumTF.sd_layout.topSpaceToView(backView, TOP_LABEL_HEIGHT)
     .leftSpaceToView(backView, TEXTF_X)
